@@ -16,28 +16,14 @@ import {
   StatusBar,
 } from 'react-native';
 
-import {
-  Header,
-  LearnMoreLinks,
-  Colors,
-  DebugInstructions,
-  ReloadInstructions,
-} from 'react-native/Libraries/NewAppScreen';
+import Main from './components/main';
 
 const App: () => React$Node = () => {
   return (
     <>
-      <View style={styles.wrapper}>
-        <Text>Some</Text>
-      </View>
+      <Main />
     </>
   );
 };
-
-const styles = StyleSheet.create({
-  wrapper: {
-    display: 'flex',
-  },
-});
 
 export default App;
