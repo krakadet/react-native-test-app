@@ -23,19 +23,20 @@ export function getPictures() {
 
   const param = new URLSearchParams(params).toString();
 
-  return async () => {
+  return async (dispatch) => {
     try {
       const response = await fetch(`${url}?${param}`);
+      console.log('response=>', response);
 
       // if (response.status === 200) {
       const data = await response.json();
       console.log('data=>', data);
 
       // console.log('convertToNormilize(data=>', convertToNormilize(data));
-      // return {
-      //   type: GET_PICTURES,
-      //   payload: convertToNormilize(data),
-      // };
+      return dispatch({
+        type: GET_PICTURES,
+        payload: convertToNormilize(data),
+      });
       // }
     } catch (e) {
       throw new Error('getPictures fail');

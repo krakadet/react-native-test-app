@@ -1,8 +1,8 @@
 import {createSelector} from 'reselect';
 
-// export const list = (state) => state.list;
-// export const data = (state) => state.data;
+export const selectPicturelist = (state) => state.list;
+export const selectPictureData = (state) => state.data;
 
-// const subtotalSelector = createSelector(shopItemsSelector, (items) =>
+// const urlPictureList = createSelector(shopItemsSelector, (items) =>
 //   items.reduce((acc, item) => acc + item.value, 0),
 // );
