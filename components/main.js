@@ -1,18 +1,27 @@
 import React, {useEffect} from 'react';
 
-import {StyleSheet, ScrollView, View, Text, Image} from 'react-native';
+import {
+  StyleSheet,
+  ScrollView,
+  View,
+  Text,
+  Image,
+  TouchableOpacity,
+} from 'react-native';
 import {widthScreen} from '../constance';
 import {useDispatch, useSelector} from 'react-redux';
 import {getPictures} from '../actions';
 import {selectPictureData, selectPicturelist} from '../selectors';
 
-function Main() {
+function Main(props) {
+  const {navigation} = props;
   const dispatch = useDispatch();
   useEffect(() => {
-    console.log('effect=>', );
+    console.log('effect=>');
 
     dispatch(getPictures());
   }, []);
+  console.log('props=>', props);
 
   const picturesList = useSelector(selectPicturelist);
   const picturesData = useSelector(selectPictureData);
@@ -24,7 +33,15 @@ function Main() {
     <ScrollView style={wrapper}>
       {picturesList.map((pic) => {
         return (
-          <React.Fragment key={pic}>
+          <TouchableOpacity
+            key={pic}
+            onPress={() => {
+              console.log('onPress=>');
+
+              return navigation.navigate('Picture', {
+                uri: picturesData[pic].urls.full,
+              });
+            }}>
             <Text style={autor}>{picturesData[pic].user.name}</Text>
             <Image
               style={tinyLogo}
@@ -34,7 +51,7 @@ function Main() {
               }}
             />
             <Text style={text}>{picturesData[pic].description}</Text>
-          </React.Fragment>
+          </TouchableOpacity>
         );
       })}
     </ScrollView>
