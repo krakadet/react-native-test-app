@@ -1,15 +1,10 @@
 import React, {useEffect} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
-import {
-  StyleSheet,
-  ScrollView,
-  Text,
-  Image,
-  TouchableOpacity,
-} from 'react-native';
+import {StyleSheet, ScrollView, TouchableOpacity} from 'react-native';
 import {widthScreen} from '../constance';
 import {getPictures} from '../actions';
 import {selectPictureData, selectPictureList} from '../selectors';
+import PictureBlock from './picture-block';
 
 function PictureList(props) {
   const {navigation} = props;
@@ -22,7 +17,7 @@ function PictureList(props) {
     dispatch(getPictures());
   }, [picturesList, picturesData]);
 
-  const {wrapper, tinyLogo, text, author} = styles;
+  const {wrapper} = styles;
 
   return (
     <ScrollView style={wrapper}>
@@ -35,15 +30,7 @@ function PictureList(props) {
                 uri: picturesData[pic].urls.full,
               })
             }>
-            <Text style={author}>{picturesData[pic].user.name}</Text>
-            <Image
-              style={tinyLogo}
-              source={{
-                uri: picturesData[pic].urls.small,
-                alt: picturesData[pic].urls.alt_description,
-              }}
-            />
-            <Text style={text}>{picturesData[pic].description}</Text>
+            <PictureBlock pic={pic} />
           </TouchableOpacity>
         );
       })}
