@@ -5,13 +5,10 @@ const initialState = {
   data: {},
 };
 
-function mainReducer(state = initialState, action) {
-  console.log('action=>', action);
-
+export default function (state = initialState, action) {
   switch (action.type) {
     case GET_PICTURES:
       return action.payload;
   }
   return state;
 }
-export default mainReducer;

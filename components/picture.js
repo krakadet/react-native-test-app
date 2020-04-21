@@ -1,27 +1,23 @@
 import React from 'react';
-import {Image, View, StyleSheet} from 'react-native';
-import {widthScreen, heightScreen} from '../constance';
+import {Image, View, StyleSheet, ActivityIndicator} from 'react-native';
 
 function Picture(props) {
-  console.log('props=>', props);
   const {route} = props;
-  console.log('params=>', route.params);
-
-  const {container, sub, cover} = styles;
+  const {container, cover} = styles;
   return (
     <View style={container}>
-      <View style={sub}>
-        <Image style={cover} source={{uri: route.params.uri}} />
-      </View>
+      <Image
+        style={cover}
+        source={{uri: route.params.uri}}
+        resizeMode={'contain'}
+      />
+      <ActivityIndicator size="small" color="#00ff00" />
     </View>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
-    paddingVertical: 20,
-  },
-  sub: {
     shadowColor: '#000',
     borderRadius: 10,
     backgroundColor: 'white',
@@ -30,9 +26,8 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.4,
   },
   cover: {
-    borderRadius: 10,
-    width: widthScreen,
-    height: heightScreen,
+    width: '100%',
+    height: '100%',
   },
 });
 

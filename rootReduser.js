@@ -1,10 +1,6 @@
 import thunkMiddleware from 'redux-thunk';
 import {createStore, applyMiddleware} from 'redux';
-import mainReducer from '../TestApp/reducers';
+import reducer from './reducer';
 
-const store = createStore(
-  mainReducer,
-  // window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__(),
-  applyMiddleware(thunkMiddleware),
-);
+const store = createStore(reducer, applyMiddleware(thunkMiddleware));
 export default store;

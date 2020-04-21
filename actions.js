@@ -1,6 +1,7 @@
+import {url, params} from './constance';
 export const GET_PICTURES = 'GET_PICTURES';
 
-function convertToNormilize(response) {
+function convertToNormalise(response) {
   return response.reduce(
     (acc, item) => {
       acc.list = acc.list.concat(item.id);
@@ -15,29 +16,19 @@ function convertToNormilize(response) {
 }
 
 export function getPictures() {
-  const url = new URL('https://api.unsplash.com/photos/');
-  const params = {
-    client_id:
-      'cf49c08b444ff4cb9e4d126b7e9f7513ba1ee58de7906e4360afc1a33d1bf4c0',
-  };
-
   const param = new URLSearchParams(params).toString();
-
   return async (dispatch) => {
     try {
       const response = await fetch(`${url}?${param}`);
-      console.log('response=>', response);
 
-      // if (response.status === 200) {
-      const data = await response.json();
-      console.log('data=>', data);
+      if (response.ok) {
+        const data = await response.json();
 
-      // console.log('convertToNormilize(data=>', convertToNormilize(data));
-      return dispatch({
-        type: GET_PICTURES,
-        payload: convertToNormilize(data),
-      });
-      // }
+        return dispatch({
+          type: GET_PICTURES,
+          payload: convertToNormalise(data),
+        });
+      }
     } catch (e) {
       throw new Error('getPictures fail');
     }

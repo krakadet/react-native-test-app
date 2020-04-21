@@ -1,48 +1,41 @@
 import React, {useEffect} from 'react';
-
+import {useDispatch, useSelector} from 'react-redux';
 import {
   StyleSheet,
   ScrollView,
-  View,
   Text,
   Image,
   TouchableOpacity,
 } from 'react-native';
 import {widthScreen} from '../constance';
-import {useDispatch, useSelector} from 'react-redux';
 import {getPictures} from '../actions';
-import {selectPictureData, selectPicturelist} from '../selectors';
+import {selectPictureData, selectPictureList} from '../selectors';
 
-function Main(props) {
+function PictureList(props) {
   const {navigation} = props;
   const dispatch = useDispatch();
-  useEffect(() => {
-    console.log('effect=>');
 
-    dispatch(getPictures());
-  }, []);
-  console.log('props=>', props);
-
-  const picturesList = useSelector(selectPicturelist);
+  const picturesList = useSelector(selectPictureList);
   const picturesData = useSelector(selectPictureData);
 
-  console.log('picturesList=>', picturesList);
-  console.log('picturesData=>', picturesData);
-  const {wrapper, tinyLogo, text, imgWrapper, autor} = styles;
+  useEffect(() => {
+    dispatch(getPictures());
+  }, [picturesList, picturesData]);
+
+  const {wrapper, tinyLogo, text, author} = styles;
+
   return (
     <ScrollView style={wrapper}>
       {picturesList.map((pic) => {
         return (
           <TouchableOpacity
             key={pic}
-            onPress={() => {
-              console.log('onPress=>');
-
-              return navigation.navigate('Picture', {
+            onPress={() =>
+              navigation.navigate('Picture', {
                 uri: picturesData[pic].urls.full,
-              });
-            }}>
-            <Text style={autor}>{picturesData[pic].user.name}</Text>
+              })
+            }>
+            <Text style={author}>{picturesData[pic].user.name}</Text>
             <Image
               style={tinyLogo}
               source={{
@@ -76,16 +69,12 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     width: widthScreen,
   },
-  autor: {
+  author: {
     textTransform: 'capitalize',
     width: widthScreen / 2.4,
     textAlign: 'center',
     alignSelf: 'center',
   },
-  imgWrapper: {
-    display: 'flex',
-    flexDirection: 'column',
-  },
 });
 
-export default Main;
+export default PictureList;
