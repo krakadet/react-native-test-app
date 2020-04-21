@@ -16,7 +16,7 @@ export default class App extends Component {
       <Provider store={store}>
         <NavigationContainer>
           <Stack.Navigator>
-            <Stack.Screen name="PictureList" component={PictureList} />
+            <Stack.Screen name="Pictures" component={PictureList} />
             <Stack.Screen name="Picture" component={Picture} />
           </Stack.Navigator>
         </NavigationContainer>
